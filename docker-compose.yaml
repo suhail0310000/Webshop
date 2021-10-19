@@ -1,0 +1,22 @@
+version: "3.9" 
+services:
+  backend:
+    container_name: app-flask
+    build: .
+    ports:
+      - "5000:5000"
+    networks:
+      - app-network
+    depends_on:
+      - database
+    restart: always
+  database:
+    container_name: db-mysql
+    image: mysql
+    environment:
+        - MYSQL_ROOT_PASSWORD=admin
+        - MYSQL_DATABASE=testdatabase
+    networks:
+      - app-network
+networks:
+  app-network:
